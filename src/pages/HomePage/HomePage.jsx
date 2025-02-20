@@ -28,17 +28,28 @@ export default function Home() {
     { category: "Ví", image: vi },
   ]);
 
-  const filteredWatches = all_products.filter(product => product.category === "Đồng hồ").slice(0, 8);
-  const filteredTrangSucs = all_products.filter(product => product.category === "Trang sức").slice(0, 8);
+  const filteredWatches = all_products
+    .filter((product) => product.category === "Đồng hồ")
+    .slice(0, 8);
+  const filteredTrangSucs = all_products
+    .filter((product) => product.category === "Trang sức")
+    .slice(0, 8);
 
   return (
     <Container>
-      {/* Danh mục sản phẩm */}
       <Row gutter={[16, 16]} justify="center">
         {collections.map((collection, index) => (
-          <Col key={index} xs={12} sm={8} md={6} lg={6} xl={4}>
+          <Col key={index} xs={12} sm={12} md={8} lg={6} xl={6}>
             <StyledLink to="/search" state={{ category: collection.category }}>
-              <StyledCard hoverable cover={<ProductImage src={collection.image} alt={collection.category} preview={false} />}>
+              <StyledCard
+                hoverable
+                cover={
+                  <ProductImage
+                    src={collection.image}
+                    alt={collection.category}
+                  />
+                }
+              >
                 <CardTitle>{collection.category}</CardTitle>
               </StyledCard>
             </StyledLink>
@@ -48,28 +59,35 @@ export default function Home() {
 
       {/* Banner nhỏ */}
       <ImageWrapper>
-        <StyledImage src={watchBannerImg} alt="Watch Banner" preview={false} />
-        <StyledImage src={trangsucBannerImg} alt="Trang sức Banner" preview={false} />
+        <StyledImage src={watchBannerImg} alt="Watch Banner" />
+        <StyledImage src={trangsucBannerImg} alt="Trang sức Banner" />
       </ImageWrapper>
 
       {/* Hiển thị sản phẩm "Đồng hồ" */}
       {filteredWatches.length > 0 && (
         <>
           <Title level={2}>Đồng hồ</Title>
-          <Row gutter={[16, 16]} justify="center">
-            {filteredWatches.map((product) => (
-              <Col key={product.id} xs={12} sm={8} md={6} lg={6} xl={4}>
-                <StyledLink to={`/product/${product.id}`}>
-                <StyledCard
-  hoverable
-  cover={<ProductImage src={product.image} alt={product.name} />}
->
-  <Card.Meta title={product.name} style={{ textAlign: "center", color: "white" }} />
-</StyledCard>
-                </StyledLink>
-              </Col>
-            ))}
-          </Row>
+          {chunkArray(filteredWatches, 4).map((row, rowIndex) => (
+            <Row key={rowIndex} gutter={[16, 16]} justify="center">
+              {row.map((product) => (
+                <Col key={product.id} xs={12} sm={12} md={8} lg={6} xl={6}>
+                  <StyledLink to={`/product/${product.id}`}>
+                    <StyledCard
+                      hoverable
+                      cover={
+                        <ProductImage src={product.image} alt={product.name} />
+                      }
+                    >
+                      <Card.Meta
+                        title={product.name}
+                        style={{ textAlign: "center", color: "white" }}
+                      />
+                    </StyledCard>
+                  </StyledLink>
+                </Col>
+              ))}
+            </Row>
+          ))}
         </>
       )}
 
@@ -77,25 +95,39 @@ export default function Home() {
       {filteredTrangSucs.length > 0 && (
         <>
           <Title level={2}>Trang sức</Title>
-          <Row gutter={[16, 16]} justify="center">
-            {filteredTrangSucs.map((product) => (
-              <Col key={product.id} xs={12} sm={8} md={6} lg={6} xl={4}>
-                <StyledLink to={`/product/${product.id}`}>
-                <StyledCard
-  hoverable
-  cover={<ProductImage src={product.image} alt={product.name} />}
->
-  <Card.Meta title={product.name} style={{ textAlign: "center", color: "white" }} />
-</StyledCard>
-                </StyledLink>
-              </Col>
-            ))}
-          </Row>
+          {chunkArray(filteredTrangSucs, 4).map((row, rowIndex) => (
+            <Row key={rowIndex} gutter={[16, 16]} justify="center">
+              {row.map((product) => (
+                <Col key={product.id} xs={12} sm={12} md={8} lg={6} xl={6}>
+                  <StyledLink to={`/product/${product.id}`}>
+                    <StyledCard
+                      hoverable
+                      cover={
+                        <ProductImage src={product.image} alt={product.name} />
+                      }
+                    >
+                      <Card.Meta
+                        title={product.name}
+                        style={{ textAlign: "center", color: "white" }}
+                      />
+                    </StyledCard>
+                  </StyledLink>
+                </Col>
+              ))}
+            </Row>
+          ))}
         </>
       )}
     </Container>
   );
 }
+
+// Hàm chia mảng thành từng nhóm (tối đa 4 sản phẩm mỗi hàng)
+const chunkArray = (array, size) => {
+  return Array.from({ length: Math.ceil(array.length / size) }, (_, i) =>
+    array.slice(i * size, i * size + size)
+  );
+};
 
 // Styled Components
 const Container = styled.div`
@@ -109,34 +141,26 @@ const Container = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   display: flex;
-  flex-direction: column; /* Sắp xếp theo chiều dọc */
+  flex-direction: column;
   align-items: center;
-  gap: 10px; /* Khoảng cách giữa hai ảnh */
+  gap: 10px;
   margin-bottom: 20px;
 `;
 
-const StyledImage = styled(Image)`
-  width: 100%; /* Chiều ngang cố định, luôn full */
-  max-width: 800px; /* Đảm bảo không quá lớn */
-  height: 400px; /* Đặt chiều cao cố định để ảnh đồng nhất */
-  object-fit: cover; /* Giữ tỷ lệ mà không bị méo */
-  border-radius: 10px; /* Bo góc nhẹ cho đẹp */
+const StyledImage = styled.img`
+  width: 100vw; /* Chiếm toàn bộ chiều rộng màn hình */
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0; /* Loại bỏ bo góc nếu không cần thiết */
 `;
-
-
-
-
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
 `;
-
-
-
-
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -154,10 +178,6 @@ const StyledCard = styled(Card)`
   }
 `;
 
-
-
-
-
 const ProductImage = styled.img`
   width: 80%;
   height: auto;
@@ -172,8 +192,3 @@ const CardTitle = styled(Title)`
   margin-top: 10px;
   color: white;
 `;
-
-
-
-
-

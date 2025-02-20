@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const DefaultComponent = () => {
-  return (
-    <div>
-      DefaultComponent
-    </div>
-  )
-}
+const DefaultComponent = ({ children }) => {
+  return <div>{children}</div>;
+};
 
-export default DefaultComponent
+export default DefaultComponent;
