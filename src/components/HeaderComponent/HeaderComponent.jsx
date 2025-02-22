@@ -13,7 +13,6 @@ const Sidebar = () => {
 
   return (
     <div>
-      {/* Nút mở sidebar */}
       <div
         style={{
           fontSize: screens.xs ? "14px" : "16px",
@@ -25,7 +24,6 @@ const Sidebar = () => {
         <MenuOutlined /> Menu
       </div>
 
-      {/* Sidebar */}
       <Drawer
         title={
           <div
@@ -35,14 +33,13 @@ const Sidebar = () => {
               gap: "10px",
             }}
           >
-            {/* Icon đóng nằm bên trái */}
             <CloseOutlined
               onClick={() => setOpen(false)}
               style={{
                 cursor: "pointer",
-                fontSize: screens.xs ? "16px" : "18px", // Nhỏ hơn trên mobile
-                marginLeft: "25px",
-                height: screens.xs ? "2rem" : "3.7rem",
+                fontSize: screens.xs ? "16px" : "18px",
+                marginLeft: "50px",
+                height: screens.xs ? "2rem" : "5.3rem",
               }}
             />
             <span
@@ -59,8 +56,8 @@ const Sidebar = () => {
         placement="left"
         onClose={() => setOpen(false)}
         open={open}
-        closeIcon={null} // Ẩn icon đóng mặc định
-        width={screens.xs ? "80%" : "300px"} // Sidebar nhỏ hơn trên mobile
+        closeIcon={null}
+        width={screens.xs ? "80%" : "300px"}
       >
         <ul
           style={{
@@ -81,7 +78,7 @@ const Sidebar = () => {
               key={index}
               style={{
                 marginBottom: "10px",
-                marginLeft: screens.xs ? "10px" : "30px", // Canh chỉnh cho mobile
+                marginLeft: screens.xs ? "10px" : "30px",
               }}
             >
               {item}
@@ -112,13 +109,12 @@ const HeaderComponent = () => {
     if (location.pathname !== "/") {
       navigate("/");
     }
-    window.scroll(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
   return (
     <div style={{ height: screens.xs ? "4rem" : "7rem" }}>
       {" "}
-      {/* Header nhỏ hơn trên mobile */}
       <WrapperHeader>
         <Col style={{ textAlign: "center" }} span={screens.xs ? 4 : 2}>
           <Sidebar />

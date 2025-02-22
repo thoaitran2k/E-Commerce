@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Row, Col, Typography, Space } from "antd";
-import { Link } from "react-router-dom"; // Import Link từ react-router-dom
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import {
   FacebookOutlined,
   TwitterOutlined,
@@ -12,45 +12,70 @@ import {
 const { Text, Title } = Typography;
 
 const FooterComponent = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  // Xác định các trang có banner cần cuộn lên đầu
+  const isBannerPage = ["/", "/products", "/order"].includes(location.pathname);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsAtTop(window.scrollY === 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Hàm xử lý cuộn lên đầu khi click vào link
+  const handleScrollToTop = (path) => {
+    if (location.pathname === path) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate(path);
+    }
+  };
+
   return (
     <FooterWrapper>
       <FooterContent>
         <Row gutter={[16, 16]} justify="center">
-          {/* Section 2: Customer Service */}
-          <Col xs={24} sm={12} md={6}>
+          <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <SectionTitle>Hỗ trợ khách hàng</SectionTitle>
             <FooterText>Liên hệ: support@website.com</FooterText>
             <FooterText>Hotline: 1800-1234</FooterText>
           </Col>
 
-          {/* Section 3: Useful Links */}
-          <Col xs={24} sm={12} md={6}>
+          <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <SectionTitle>Liên kết hữu ích</SectionTitle>
             <FooterText>
-              <StyledLink to="/">Trang chủ</StyledLink>{" "}
-              {/* Link đến trang Home */}
+              <StyledLink onClick={() => handleScrollToTop("/")}>
+                Trang chủ
+              </StyledLink>
             </FooterText>
             <FooterText>
-              <StyledLink to="/products">Sản phẩm</StyledLink>{" "}
-              {/* Link đến trang Products */}
+              <StyledLink onClick={() => handleScrollToTop("/products")}>
+                Sản phẩm
+              </StyledLink>
             </FooterText>
             <FooterText>
-              <StyledLink to="/order">Đặt hàng</StyledLink>{" "}
-              {/* Link đến trang Order */}
+              <StyledLink onClick={() => handleScrollToTop("/order")}>
+                Đặt hàng
+              </StyledLink>
             </FooterText>
             <FooterText>Chính sách bảo mật</FooterText>
             <FooterText>Điều khoản dịch vụ</FooterText>
             <FooterText>FAQ</FooterText>
           </Col>
 
-          {/* Section 4: Contact */}
-          <Col xs={24} sm={12} md={6}>
+          <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <SectionTitle>Liên hệ với chúng tôi</SectionTitle>
             <FooterText>Địa chỉ: 123 Đường ABC, TP.HCM</FooterText>
             <FooterText>Email: info@website.com</FooterText>
           </Col>
 
-          <Col xs={24} sm={12} md={6}>
+          <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <SectionTitle>Về chúng tôi</SectionTitle>
             <FooterText>
               Chúng tôi chuyên cung cấp các sản phẩm thời trang cao cấp cho mọi
@@ -75,9 +100,7 @@ const FooterComponent = () => {
       </FooterContent>
 
       <FooterBottom>
-        <Text style={{ color: "white" }}>
-          © 2025 Website - All Rights Reserved
-        </Text>
+        <Text style={{ color: "white" }}>© 2025 Website Project 2 ©</Text>
       </FooterBottom>
     </FooterWrapper>
   );
@@ -85,22 +108,26 @@ const FooterComponent = () => {
 
 export default FooterComponent;
 
-// Styled Components
 const FooterWrapper = styled.div`
+  width: 100%;
   background-color: rgb(78, 78, 64);
   color: white;
-  padding: 20px 250px;
+  padding: 20px 10px;
   font-family: "Arial";
+  position: relative;
 `;
 
 const FooterContent = styled.div`
-  padding: 20px;
+  padding: 10px;
+  max-width: 1900px;
+  margin: 0 auto;
 `;
 
-const SectionTitle = styled(Title)`
-  font-size: 18px;
-  color: #d4af37;
+const SectionTitle = styled(Title).attrs({ as: "h3" })`
+  font-size: 26px;
+  color: rgb(215, 238, 6);
   margin-bottom: 10px;
+  font-weight: 400;
 `;
 
 const FooterText = styled(Text)`
@@ -108,6 +135,8 @@ const FooterText = styled(Text)`
   color: #b8b8b8;
   margin-bottom: 10px;
   font-size: 14px;
+  max-width: 300px;
+  cursor: pointer;
 `;
 
 const IconContainer = styled.div`
@@ -127,10 +156,10 @@ const FooterBottom = styled.div`
   margin-top: 20px;
 `;
 
-// Đảm bảo StyledLink được khai báo đúng trước khi sử dụng
-const StyledLink = styled(Link)`
+const StyledLink = styled.span`
   color: #d4af37;
   text-decoration: none;
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;

@@ -1,42 +1,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Card, Row, Col, Typography, Image } from "antd";
+import { Card, Row, Col, Typography } from "antd";
 import { Link } from "react-router-dom";
-import watchBannerImg from "/src/assets/watchBanner.jpg";
-import trangsucBannerImg from "/src/assets/trangsucBanner.jpg";
-import watchCol from "/src/assets/watchCol.png";
-import bagCol from "/src/assets/bagCol.png";
-import aonamCol from "/src/assets/aonamCol.png";
-import aonuCol from "/src/assets/aonuCol.png";
-import quannuCol from "/src/assets/quannuCol.png";
-import quannamCol from "/src/assets/quannamCol.png";
-import trangsucCol from "/src/assets/trangsucCol.png";
-import vi from "/src/assets/vi.png";
 
 const { Title } = Typography;
 
 export default function Home() {
-  const [all_products] = useState([]);
   const [collections] = useState([
-    { category: "Áo nam", image: aonamCol },
-    { category: "Quần nam", image: quannamCol },
-    { category: "Đồng hồ", image: watchCol },
-    { category: "Áo nữ", image: aonuCol },
-    { category: "Quần nữ", image: quannuCol },
-    { category: "Túi xách", image: bagCol },
-    { category: "Trang sức", image: trangsucCol },
-    { category: "Ví", image: vi },
+    { category: "Áo nam", image: "/src/assets/aonamCol.png" },
+    { category: "Quần nam", image: "/src/assets/quannamCol.png" },
+    { category: "Đồng hồ", image: "/src/assets/watchCol.png" },
+    { category: "Áo nữ", image: "/src/assets/aonuCol.png" },
+    { category: "Quần nữ", image: "/src/assets/quannuCol.png" },
+    { category: "Túi xách", image: "/src/assets/bagCol.png" },
+    { category: "Trang sức", image: "/src/assets/trangsucCol.png" },
+    { category: "Ví", image: "/src/assets/vi.png" },
   ]);
-
-  const filteredWatches = all_products
-    .filter((product) => product.category === "Đồng hồ")
-    .slice(0, 8);
-  const filteredTrangSucs = all_products
-    .filter((product) => product.category === "Trang sức")
-    .slice(0, 8);
 
   return (
     <Container>
+      <Title level={2} style={{ textAlign: "center" }}>
+        Khách hàng luôn là ưu tiên của chúng tôi<br></br>
+        Hãy lựa chọn theo sở thích của bạn!
+      </Title>
       <Row gutter={[16, 16]} justify="center">
         {collections.map((collection, index) => (
           <Col key={index} xs={12} sm={12} md={8} lg={6} xl={6}>
@@ -56,127 +42,17 @@ export default function Home() {
           </Col>
         ))}
       </Row>
-
-      {/* Banner nhỏ */}
-      <ImageWrapper>
-        <StyledImage
-          src={watchBannerImg}
-          alt="Watch Banner"
-          className="banner-img"
-        />
-        <StyledImage
-          src={trangsucBannerImg}
-          alt="Trang sức Banner"
-          className="banner-img"
-        />
-      </ImageWrapper>
-
-      {/* Hiển thị sản phẩm "Đồng hồ" */}
-      {filteredWatches.length > 0 && (
-        <>
-          <Title level={2}>Đồng hồ</Title>
-          {chunkArray(filteredWatches, 4).map((row, rowIndex) => (
-            <Row key={rowIndex} gutter={[16, 16]} justify="center">
-              {row.map((product) => (
-                <Col key={product.id} xs={12} sm={12} md={8} lg={6} xl={6}>
-                  <StyledLink to={`/product/${product.id}`}>
-                    <StyledCard
-                      hoverable
-                      cover={
-                        <ProductImage src={product.image} alt={product.name} />
-                      }
-                    >
-                      <Card.Meta
-                        title={product.name}
-                        style={{ textAlign: "center", color: "white" }}
-                      />
-                    </StyledCard>
-                  </StyledLink>
-                </Col>
-              ))}
-            </Row>
-          ))}
-        </>
-      )}
-
-      {/* Hiển thị sản phẩm "Trang sức" */}
-      {filteredTrangSucs.length > 0 && (
-        <>
-          <Title level={2}>Trang sức</Title>
-          {chunkArray(filteredTrangSucs, 4).map((row, rowIndex) => (
-            <Row key={rowIndex} gutter={[16, 16]} justify="center">
-              {row.map((product) => (
-                <Col key={product.id} xs={12} sm={12} md={8} lg={6} xl={6}>
-                  <StyledLink to={`/product/${product.id}`}>
-                    <StyledCard
-                      hoverable
-                      cover={
-                        <ProductImage src={product.image} alt={product.name} />
-                      }
-                    >
-                      <Card.Meta
-                        title={product.name}
-                        style={{ textAlign: "center", color: "white" }}
-                      />
-                    </StyledCard>
-                  </StyledLink>
-                </Col>
-              ))}
-            </Row>
-          ))}
-        </>
-      )}
     </Container>
   );
 }
-
-// Hàm chia mảng thành từng nhóm (tối đa 4 sản phẩm mỗi hàng)
-const chunkArray = (array, size) => {
-  return Array.from({ length: Math.ceil(array.length / size) }, (_, i) =>
-    array.slice(i * size, i * size + size)
-  );
-};
 
 // Styled Components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 100%;
-  min-height: 100vh;
-  font-family: "Arial";
-  padding: 20px;
-`;
-
-const ImageWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  /* Sử dụng toàn bộ chiều ngang mà không có margin từ các cạnh */
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  /* Thêm vào để đảm bảo rằng khi màn hình nhỏ, ảnh vẫn kéo dài toàn bộ chiều rộng */
-  @media (max-width: 768px) {
-    gap: 5px;
-  }
-`;
-
-const StyledImage = styled.img`
+  padding: 20px;
   width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  margin: 0;
-  /* Xóa border-radius để đảm bảo ảnh không bị bo góc */
-  border-radius: 0;
-  /* Đảm bảo ảnh chiếm toàn bộ chiều rộng */
-  max-width: 100%;
-  /* Đảm bảo ảnh sẽ không bị thu nhỏ quá mức */
-  object-fit: cover;
 `;
 
 const StyledLink = styled(Link)`
@@ -189,12 +65,11 @@ const StyledCard = styled(Card)`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, #1c1c1c 40%, #d4af37 100%) !important;
+  background: linear-gradient(135deg, #1c1c1c 40%, #d4af37 100%);
   border-radius: 10px;
   color: white;
   transition: 0.3s;
   padding: 10px;
-
   &:hover {
     background: linear-gradient(135deg, #000000 40%, #c8a415 100%);
   }
@@ -202,14 +77,13 @@ const StyledCard = styled(Card)`
 
 const ProductImage = styled.img`
   width: 80%;
-  height: auto;
   object-fit: contain;
   max-height: 200px;
 `;
 
 const CardTitle = styled(Title)`
   text-align: center;
-  font-size: 16px !important;
+  font-size: 16px;
   font-weight: 500;
   margin-top: 10px;
   color: white;

@@ -8,12 +8,12 @@ export const WrapperHeader = styled(Row)`
   display: flex;
   align-items: center;
 
-  position: fixed; /* Cố định header */
-  top: 0; /* Đặt ở trên cùng */
+  position: fixed;
+  top: 0;
   left: 0;
-  width: 100%; /* Chiếm toàn bộ chiều rộng */
-  z-index: 1000; /* Đảm bảo header hiển thị trên các phần khác */
-  height: 7rem;
+  width: 100%;
+  z-index: 1000;
+  height: 8.7rem;
 `;
 
 export const WrapperLogo = styled.span`
