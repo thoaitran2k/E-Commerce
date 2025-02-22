@@ -1,16 +1,15 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { routes } from "./routes";
 import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
-import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
 import Layout from "./components/Layout/Layout";
+import FooterComponent from "./components/FooterComponent/FooterComponent";
 
 function App() {
   return (
     <div>
       <Router>
         <HeaderComponent />
-
         <Routes>
           {routes.map((route) => {
             const Page = route.page;
@@ -30,6 +29,7 @@ function App() {
             );
           })}
         </Routes>
+        <FooterComponent /> {/* Footer should be outside Routes */}
       </Router>
     </div>
   );

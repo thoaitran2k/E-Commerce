@@ -59,8 +59,16 @@ export default function Home() {
 
       {/* Banner nhỏ */}
       <ImageWrapper>
-        <StyledImage src={watchBannerImg} alt="Watch Banner" />
-        <StyledImage src={trangsucBannerImg} alt="Trang sức Banner" />
+        <StyledImage
+          src={watchBannerImg}
+          alt="Watch Banner"
+          className="banner-img"
+        />
+        <StyledImage
+          src={trangsucBannerImg}
+          alt="Trang sức Banner"
+          className="banner-img"
+        />
       </ImageWrapper>
 
       {/* Hiển thị sản phẩm "Đồng hồ" */}
@@ -141,20 +149,34 @@ const Container = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
+  /* Sử dụng toàn bộ chiều ngang mà không có margin từ các cạnh */
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  /* Thêm vào để đảm bảo rằng khi màn hình nhỏ, ảnh vẫn kéo dài toàn bộ chiều rộng */
+  @media (max-width: 768px) {
+    gap: 5px;
+  }
 `;
 
 const StyledImage = styled.img`
-  width: 100vw; /* Chiếm toàn bộ chiều rộng màn hình */
+  width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
-  border-radius: 0; /* Loại bỏ bo góc nếu không cần thiết */
+  margin: 0;
+  /* Xóa border-radius để đảm bảo ảnh không bị bo góc */
+  border-radius: 0;
+  /* Đảm bảo ảnh chiếm toàn bộ chiều rộng */
+  max-width: 100%;
+  /* Đảm bảo ảnh sẽ không bị thu nhỏ quá mức */
+  object-fit: cover;
 `;
 
 const StyledLink = styled(Link)`
