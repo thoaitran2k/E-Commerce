@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Card, Row, Col, Typography } from "antd";
 import { Link } from "react-router-dom";
+import SliderComponent from "../../components/SliderComponent/SliderComponent";
+
+// Import hình ảnh slider
+import slider1 from "../../assets/slider1.png";
+import slider2 from "../../assets/slider2.png";
+import slider3 from "../../assets/slider3.png";
 
 const { Title } = Typography;
 
@@ -19,10 +25,13 @@ export default function Home() {
 
   return (
     <Container>
-      <Title level={2} style={{ textAlign: "center" }}>
-        Khách hàng luôn là ưu tiên của chúng tôi<br></br>
-        Hãy lựa chọn theo sở thích của bạn!
+      <SliderComponent arrImages={[slider1, slider2, slider3]} />
+
+      <Title level={2} style={{ textAlign: "center", marginTop: "20px" }}>
+        Khách hàng luôn là ưu tiên của chúng tôi
+        <br /> Hãy lựa chọn theo sở thích của bạn!
       </Title>
+
       <Row gutter={[16, 16]} justify="center">
         {collections.map((collection, index) => (
           <Col key={index} xs={12} sm={12} md={8} lg={6} xl={6}>
@@ -51,6 +60,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 20px;
   width: 100%;
 `;
@@ -65,20 +75,19 @@ const StyledCard = styled(Card)`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, #1c1c1c 40%, #d4af37 100%);
   border-radius: 10px;
   color: white;
   transition: 0.3s;
   padding: 10px;
   &:hover {
-    background: linear-gradient(135deg, #000000 40%, #c8a415 100%);
+    transform: scale(1.05);
   }
 `;
 
 const ProductImage = styled.img`
-  width: 80%;
-  object-fit: contain;
-  max-height: 200px;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 `;
 
 const CardTitle = styled(Title)`
@@ -86,5 +95,5 @@ const CardTitle = styled(Title)`
   font-size: 16px;
   font-weight: 500;
   margin-top: 10px;
-  color: white;
+  color: black;
 `;

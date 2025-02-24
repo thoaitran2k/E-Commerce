@@ -40,7 +40,7 @@ const FooterComponent = () => {
   return (
     <FooterWrapper>
       <FooterContent>
-        <Row gutter={[16, 16]} justify="center">
+        <Row gutter={[16, 16]} justify="space-between">
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <SectionTitle>Hỗ trợ khách hàng</SectionTitle>
             <FooterText>Liên hệ: support@website.com</FooterText>
@@ -119,8 +119,8 @@ const FooterWrapper = styled.div`
 
 const FooterContent = styled.div`
   padding: 10px;
-  max-width: 1900px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0 250px;
 `;
 
 const SectionTitle = styled(Title).attrs({ as: "h3" })`
