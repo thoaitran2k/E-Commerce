@@ -4,6 +4,7 @@ import { WrapperHeader } from "./style";
 import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
 import { WrapperLogo } from "./style";
 import { useNavigate, useLocation } from "react-router-dom";
+import NavbarComponent from "../../components/NavbarComponent/NavbarComponent";
 
 const { useBreakpoint } = Grid;
 
@@ -66,14 +67,7 @@ const Sidebar = () => {
             fontSize: screens.xs ? "16px" : "18px",
           }}
         >
-          {[
-            "Quà tặng",
-            "Sản phẩm mới",
-            "Túi và Phụ kiện bằng da",
-            "Đồ Nữ",
-            "Đồ Nam",
-            "Trang sức",
-          ].map((item, index) => (
+          {[<NavbarComponent />].map((item, index) => (
             <li
               key={index}
               style={{
