@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import CardComponent from "../../components/CardComponent/CardComponent";
 
 const OrderPage = () => {
   return (
-    <h1>
-      OrderPage
-    </h1>
-  )
-}
+    <div style={{ display: "flex", flexDirection: "row", gap: "16px" }}>
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+    </div>
+  );
+};
 
 export default OrderPage;
