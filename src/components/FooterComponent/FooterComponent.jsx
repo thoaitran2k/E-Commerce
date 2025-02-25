@@ -16,7 +16,6 @@ const FooterComponent = () => {
   const navigate = useNavigate();
   const [isAtTop, setIsAtTop] = useState(true);
 
-  // Xác định các trang có banner cần cuộn lên đầu
   const isBannerPage = ["/", "/products", "/order"].includes(location.pathname);
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const FooterComponent = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Hàm xử lý cuộn lên đầu khi click vào link
   const handleScrollToTop = (path) => {
     if (location.pathname === path) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,7 +42,7 @@ const FooterComponent = () => {
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <SectionTitle>Hỗ trợ khách hàng</SectionTitle>
             <FooterText>Liên hệ: support@website.com</FooterText>
-            <FooterText>Hotline: 1800-1234</FooterText>
+            <FooterText>Hotline: 0794330648 - 0357134228</FooterText>
           </Col>
 
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
@@ -72,7 +70,10 @@ const FooterComponent = () => {
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <SectionTitle>Liên hệ với chúng tôi</SectionTitle>
             <FooterText>Địa chỉ: 123 Đường ABC, TP.HCM</FooterText>
-            <FooterText>Email: info@website.com</FooterText>
+            <FooterText>Email: 18521455@gm.uit.edu.vn</FooterText>
+            <FooterText style={{ marginLeft: "46px" }}>
+              18521657@gm.uit.edu.vn
+            </FooterText>
           </Col>
 
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
@@ -120,14 +121,34 @@ const FooterWrapper = styled.div`
 const FooterContent = styled.div`
   padding: 10px;
   max-width: 100%;
-  margin: 0 250px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    margin: 0 50px;
+  }
+
+  @media (min-width: 992px) {
+    margin: 0 100px;
+  }
+
+  @media (min-width: 1200px) {
+    margin: 0 250px;
+  }
 `;
 
 const SectionTitle = styled(Title).attrs({ as: "h3" })`
-  font-size: 26px;
+  font-size: 20px;
   color: rgb(215, 238, 6);
   margin-bottom: 10px;
   font-weight: 400;
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+  }
+
+  @media (min-width: 992px) {
+    font-size: 26px;
+  }
 `;
 
 const FooterText = styled(Text)`
@@ -137,15 +158,23 @@ const FooterText = styled(Text)`
   font-size: 14px;
   max-width: 300px;
   cursor: pointer;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const IconContainer = styled.div`
   color: #d4af37;
-  font-size: 24px;
+  font-size: 20px;
   transition: color 0.3s ease;
 
   &:hover {
     color: white;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 24px;
   }
 `;
 
