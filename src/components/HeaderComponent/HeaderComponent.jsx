@@ -58,7 +58,7 @@ const Sidebar = () => {
         onClose={() => setOpen(false)}
         open={open}
         closeIcon={null}
-        width={screens.xs ? "80%" : "300px"}
+        width={screens.xs ? "90%" : "400px"}
       >
         <ul
           style={{
