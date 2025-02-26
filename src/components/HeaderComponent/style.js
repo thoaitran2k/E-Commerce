@@ -21,3 +21,27 @@ export const WrapperLogo = styled.span`
   color: #000;
   font-weight: bold;
 `;
+
+export const LoginButton = styled.div`
+  background: rgb(213, 224, 231);
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(8, 61, 129);
+  text-shadow: 1px 1px 2px #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  border: 2px solid #005d9c;
+  transition: 0.3s;
+  height: 20px;
+  width: 100px;
+
+  &:hover {
+    opacity: 0.8;
+    color: rgb(194, 7, 101);
+  }
+`;

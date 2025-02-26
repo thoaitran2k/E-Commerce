@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Col, Drawer, Grid } from "antd";
 import { WrapperHeader } from "./style";
 import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
-import { WrapperLogo } from "./style";
+import { WrapperLogo, LoginButton } from "./style";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavbarComponent from "../../components/NavbarComponent/NavbarComponent";
 
@@ -110,30 +110,53 @@ const HeaderComponent = () => {
     <div style={{ height: screens.xs ? "4rem" : "7rem" }}>
       {" "}
       <WrapperHeader>
-        <Col style={{ textAlign: "center" }} span={screens.xs ? 4 : 2}>
-          <Sidebar />
-        </Col>
-        <Col style={{ textAlign: "center" }} span={screens.xs ? 0 : 2}>
-          col-8
-        </Col>
-        <Col span={screens.xs ? 16 : 16} style={{ textAlign: "center" }}>
-          <div
-            onClick={handleLogoClick}
-            style={{
-              cursor:
-                isAtTop && location.pathname === "/" ? "default" : "pointer",
-              transition: "opacity 0.3s",
-            }}
-          >
-            <WrapperLogo>LOGO</WrapperLogo>
-          </div>
-        </Col>
-        <Col style={{ textAlign: "center" }} span={screens.xs ? 0 : 2}>
-          col-8
-        </Col>
-        <Col style={{ textAlign: "center" }} span={screens.xs ? 4 : 2}>
-          col-8
-        </Col>
+        {location.pathname === "/signin" ? (
+          <Col span={24} style={{ textAlign: "center" }}>
+            <div
+              onClick={handleLogoClick}
+              style={{
+                cursor:
+                  isAtTop && location.pathname === "/" ? "default" : "pointer",
+                transition: "opacity 0.3s",
+                display: "inline-block",
+              }}
+            >
+              <WrapperLogo>LOGO</WrapperLogo>
+            </div>
+          </Col>
+        ) : (
+          <>
+            <Col style={{ textAlign: "center" }} span={screens.xs ? 4 : 2}>
+              <Sidebar />
+            </Col>
+            <Col style={{ textAlign: "center" }} span={screens.xs ? 0 : 2}>
+              col-8
+            </Col>
+            <Col span={screens.xs ? 16 : 16} style={{ textAlign: "center" }}>
+              <div
+                onClick={handleLogoClick}
+                style={{
+                  cursor:
+                    isAtTop && location.pathname === "/"
+                      ? "default"
+                      : "pointer",
+                  transition: "opacity 0.3s",
+                  display: "inline-block",
+                }}
+              >
+                <WrapperLogo>LOGO</WrapperLogo>
+              </div>
+            </Col>
+            <Col style={{ textAlign: "center" }} span={screens.xs ? 0 : 2}>
+              <LoginButton onClick={() => navigate("/signin")}>
+                LOGIN
+              </LoginButton>
+            </Col>
+            <Col style={{ textAlign: "center" }} span={screens.xs ? 4 : 2}>
+              col-8
+            </Col>
+          </>
+        )}
       </WrapperHeader>
     </div>
   );

@@ -43,6 +43,9 @@ const FooterComponent = () => {
             <SectionTitle>Hỗ trợ khách hàng</SectionTitle>
             <FooterText>Liên hệ: support@website.com</FooterText>
             <FooterText>Hotline: 0794330648 - 0357134228</FooterText>
+            <FooterText>Chính sách bảo mật</FooterText>
+            <FooterText>Điều khoản dịch vụ</FooterText>
+            <FooterText>FAQ</FooterText>
           </Col>
 
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
@@ -62,9 +65,11 @@ const FooterComponent = () => {
                 Đặt hàng
               </StyledLink>
             </FooterText>
-            <FooterText>Chính sách bảo mật</FooterText>
-            <FooterText>Điều khoản dịch vụ</FooterText>
-            <FooterText>FAQ</FooterText>
+            <FooterText>
+              <StyledLink onClick={() => handleScrollToTop("/signin")}>
+                Tài khoản
+              </StyledLink>
+            </FooterText>
           </Col>
 
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>

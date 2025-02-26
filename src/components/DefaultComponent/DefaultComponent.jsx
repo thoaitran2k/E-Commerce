@@ -1,7 +1,7 @@
 import React from "react";
 
-const DefaultComponent = ({ children }) => {
-  return <div>{children}</div>;
+const DefaultComponent = () => {
+  return <div></div>;
 };
 
 export default DefaultComponent;
