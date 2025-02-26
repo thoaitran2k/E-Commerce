@@ -51,7 +51,7 @@ const FooterComponent = () => {
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <SectionTitle>Liên kết hữu ích</SectionTitle>
             <FooterText>
-              <StyledLink onClick={() => handleScrollToTop("/")}>
+              <StyledLink onClick={() => handleScrollToTop("/home")}>
                 Trang chủ
               </StyledLink>
             </FooterText>
@@ -188,6 +188,8 @@ const FooterBottom = styled.div`
   text-align: center;
   padding: 10px;
   margin-top: 20px;
+  width: 100vw;
+  margin: 0 auto;
 `;
 
 const StyledLink = styled.span`

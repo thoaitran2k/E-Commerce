@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Col, Drawer, Grid } from "antd";
 import { WrapperHeader } from "./style";
-import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
-import { WrapperLogo, LoginButton } from "./style";
+import { MenuOutlined, CloseOutlined, SearchOutlined } from "@ant-design/icons";
+import { WrapperLogo, LoginButton, StyledLink } from "./style";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavbarComponent from "../../components/NavbarComponent/NavbarComponent";
 
@@ -100,8 +100,8 @@ const HeaderComponent = () => {
   }, []);
 
   const handleLogoClick = () => {
-    if (location.pathname !== "/") {
-      navigate("/");
+    if (location.pathname !== "/home") {
+      navigate("/home");
     }
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
@@ -130,7 +130,20 @@ const HeaderComponent = () => {
               <Sidebar />
             </Col>
             <Col style={{ textAlign: "center" }} span={screens.xs ? 0 : 2}>
-              col-8
+              <div className="Search">
+                <StyledLink to="/search">
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    <SearchOutlined />
+                    <div style={{ margin: "0 5px" }}>Tìm kiếm</div>
+                  </div>
+                </StyledLink>
+              </div>
             </Col>
             <Col span={screens.xs ? 16 : 16} style={{ textAlign: "center" }}>
               <div

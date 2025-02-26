@@ -1,5 +1,6 @@
 import { Row } from "antd";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const WrapperHeader = styled(Row)`
   padding: 10px 5px;
@@ -43,5 +44,14 @@ export const LoginButton = styled.div`
   &:hover {
     opacity: 0.8;
     color: rgb(194, 7, 101);
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
