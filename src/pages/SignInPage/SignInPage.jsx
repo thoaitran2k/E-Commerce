@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   UserOutlined,
   MailOutlined,
@@ -34,24 +35,92 @@ export default function SignInPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleNext = () => {
-    setStep(step + 1);
-  };
+  const handleNext = async () => {
+    if (step === 1 && !isLogin) {
+      try {
+        const response = await fetch(
+          "http://localhost:3002/api/user/send-verification-code",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: formData.email }),
+          }
+        );
 
+        const data = await response.json();
+        // console.log("Mã xác nhận nhận được:", data.verificationCode);
+
+        if (response.ok) {
+          alert(`Mã xác nhận đã được gửi!`);
+          setCode(data.verificationCode); // Lưu mã xác nhận
+          setStep(2);
+        } else {
+          alert(data.message || "Gửi mã thất bại, vui lòng thử lại!");
+        }
+      } catch (error) {
+        alert("Lỗi kết nối, vui lòng thử lại!");
+        console.error(error);
+      }
+    } else if (step === 2) {
+      // Kiểm tra mã xác nhận
+      if (vertification === code.toString()) {
+        setStep(3);
+      } else {
+        alert("Mã xác nhận không chính xác!");
+      }
+    }
+  };
   const handleBack = () => {
     setStep(step - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin) {
-      alert("Đăng nhập thành công!");
-    } else {
+    if (!isLogin) {
       if (formData.password !== formData.confirmPassword) {
         alert("Mật khẩu xác nhận không khớp!");
         return;
       }
-      alert("Đăng ký thành công!");
+
+      // Gửi yêu cầu đăng ký đến server
+      try {
+        const response = await fetch("http://localhost:3002/api/user/sign-up", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+            phone: formData.phone,
+            dob: formData.birthDate,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Đăng ký thành công!");
+          // Reset form sau khi đăng ký thành công
+          setFormData({
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            phone: "",
+            birthDate: "",
+          });
+          // Chuyển về form đăng nhập
+          setIsLogin(true); // Chuyển sang trang đăng nhập
+          setStep(1); // Reset lại bước trong quy trình
+        } else {
+          alert(data.message || "Đăng ký thất bại, vui lòng thử lại!");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Đã có lỗi xảy ra. Vui lòng thử lại!");
+      }
     }
   };
 

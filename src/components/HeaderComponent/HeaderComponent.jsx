@@ -110,7 +110,7 @@ const HeaderComponent = () => {
     <div style={{ height: screens.xs ? "4rem" : "7rem" }}>
       {" "}
       <WrapperHeader>
-        {location.pathname === "/signin" ? (
+        {location.pathname === "/sign-in" ? (
           <Col span={24} style={{ textAlign: "center" }}>
             <div
               onClick={handleLogoClick}
@@ -150,7 +150,7 @@ const HeaderComponent = () => {
                 onClick={handleLogoClick}
                 style={{
                   cursor:
-                    isAtTop && location.pathname === "/"
+                    isAtTop && location.pathname === "/home"
                       ? "default"
                       : "pointer",
                   transition: "opacity 0.3s",
@@ -161,7 +161,7 @@ const HeaderComponent = () => {
               </div>
             </Col>
             <Col style={{ textAlign: "center" }} span={screens.xs ? 0 : 2}>
-              <LoginButton onClick={() => navigate("/signin")}>
+              <LoginButton onClick={() => navigate("/sign-in")}>
                 LOGIN
               </LoginButton>
             </Col>

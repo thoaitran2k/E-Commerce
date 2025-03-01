@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,8 +10,33 @@ import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
 import Layout from "./components/Layout/Layout";
 import FooterComponent from "./components/FooterComponent/FooterComponent";
 import styled from "styled-components";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
+  const fetchAPI = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_URL_BACKEND}/product/get-all`
+      );
+      return res.data; // Trả về dữ liệu từ API
+    } catch (error) {
+      console.error("Fetch API error:", error);
+      throw error;
+    }
+  };
+
+  // Sử dụng useQuery để gọi API
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchAPI,
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  console.log("query:", data);
+
   return (
     <AppContainer>
       <Router>
@@ -47,7 +72,7 @@ function App() {
 // Cuộn lên đầu khi đổi trang
 const ScrollToTop = () => {
   const location = useLocation();
-  useEffect(() => {
+  React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.pathname]);
 

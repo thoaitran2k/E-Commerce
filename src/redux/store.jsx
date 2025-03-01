@@ -5,5 +5,5 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
   },
-  devTools: true, // 🔥 Bật Redux DevTools
+  devTools: true, 
 })

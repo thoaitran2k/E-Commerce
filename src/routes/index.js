@@ -7,6 +7,11 @@ import SignInPage from "../pages/SignInPage/SignInPage";
 import SearchPage from "../pages/SearchPage/SearchPage";
 
 export const routes = [
+  // {
+  //   path: "/",
+  //   page: HomePage,
+  //   isShowHeader: true,
+  // },
   {
     path: "/home",
     page: HomePage,
@@ -28,7 +33,7 @@ export const routes = [
     isShowHeader: true,
   },
   {
-    path: "/signin",
+    path: "/sign-in",
     page: SignInPage,
     isShowHeader: false,
   },
