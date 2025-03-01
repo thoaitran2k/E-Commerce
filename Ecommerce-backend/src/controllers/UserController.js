@@ -71,15 +71,24 @@ const sendVerificationCode = async (req, res) => {
       .json({ status: "ERROR", message: "Email là bắt buộc" });
   }
 
-  const verificationCode = Math.floor(100000 + Math.random() * 900000); // Tạo mã 6 chữ số
+  // Kiểm tra xem email đã tồn tại hay chưa
+  const userExists = await UserService.checkUserExistsByEmail(email);
+  if (userExists) {
+    return res
+      .status(400)
+      .json({ status: "ERROR", message: "Email này đã được sử dụng!" });
+  }
+
+  // Tạo mã xác minh
+  const verificationCode = Math.floor(100000 + Math.random() * 900000); // Mã 6 chữ số
   verificationCodes[email] = verificationCode; // Lưu mã xác minh theo email
 
+  // Gửi mã xác minh qua email
   const response = await MailService.sendVerificationCode(
     email,
     verificationCode
   );
 
-  // Kiểm tra nếu email gửi thành công thì trả về cả mã xác nhận
   if (response.status === "SUCCESS") {
     return res.status(200).json({
       status: "SUCCESS",

@@ -1,7 +1,7 @@
 const sgMail = require("@sendgrid/mail");
 
 // Đặt API Key của SendGrid
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_SEND_MAIL_KEY);
 
 const sendVerificationCode = async (email, code) => {
   try {
